@@ -2,6 +2,7 @@ export default class Alunos{
 
    
     constructor(cpf){
+        this.loading();
         this.getAluno(cpf);
     }
 
@@ -16,15 +17,25 @@ export default class Alunos{
                             email: childSnapshot.child("E-MAIL DO ALUNO").val(),
                             telefone: childSnapshot.child("TELEFONE DO ALUNO").val(),
                             curso: childSnapshot.child("NOME DO CURSO").val(),
-                            turma: childSnapshot.child("OFERTA DE TURMA").val()};         
+                            turma: childSnapshot.child("OFERTA DE TURMA").val()}; 
+                     this.confirmarAluno(aluno, childSnapshot.key);               
                 }
+                if(!existe) this.setError();
             });
            
         });
  
     }
 
+    loading(){
+        Swal.fire({
+            title:'Aguarde...'
+        }).then(Swal.showLoading ());
+     }
+
+
     setError(){
+        Swal.close();
         Swal.fire({
             icon: 'error',
             title: 'Aluno não encontrado',
@@ -32,8 +43,20 @@ export default class Alunos{
         });
     }
 
-    confirmarAluno(){
-
+    confirmarAluno(aluno,id){
+        Swal.close();
+        Swal.fire({
+            icon:'question',
+            title:'Confirme os seus dados: ',
+            text: 'Nome: '+ aluno.nome +'\n'+ 'Curso: '+aluno.curso,
+            showCancelButton: true,
+            confirmButtonText: 'OK',
+            cancelButtonText:'Sair'
+        }).then((result) =>{
+            if(result.isConfirmed){
+                sessionStorage.setItem('id_aluno',id);
+            }
+        });
     }
 
 }

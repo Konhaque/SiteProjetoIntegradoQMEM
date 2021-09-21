@@ -1,0 +1,16 @@
+#pi {
+    background-color: #0d6dfd73;
+}
+
+#card {
+    padding: 3em 2em;
+}
+
+.fa-times:hover, #list, #list label {
+    cursor: pointer;
+}
+
+input:focus {
+    outline-style: none;
+    background-color: transparent;
+}
