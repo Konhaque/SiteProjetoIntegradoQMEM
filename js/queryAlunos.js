@@ -55,8 +55,31 @@ export default class Alunos{
         }).then((result) =>{
             if(result.isConfirmed){
                 sessionStorage.setItem('id_aluno',id);
+                this.opcaoAluno();
             }
         });
     }
+
+
+    opcaoAluno(){
+        Swal.fire({
+            icon: 'question',
+            title: 'Escolha uma opção',
+            text:'Escolha uma das opções abaixo',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Criar Equipe',
+            denyButtonText: 'Escolher uma Equipe',
+            cancelButtonText:'Sair'
+        }).then((result) =>{
+            if(result.isConfirmed){
+                document.getElementById('main').style.display = 'none';
+                document.getElementById('create').style.display = 'block';
+            }else if(result.isDenied){
+
+            }
+        });
+    }
+
 
 }
